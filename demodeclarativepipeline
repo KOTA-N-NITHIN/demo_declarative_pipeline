@@ -1,0 +1,45 @@
+pipeline{
+    agent any{
+        stages{
+            stage ('one'){
+                echo 'this is nithin demo declartive pipeline'
+            }
+            stage('two'){
+                steps{
+                    input('do you want to continue')
+                }
+            }
+            
+            stage('three'){
+                when{
+                    not{
+                        branch 'master'
+                    }
+                }
+                
+                steps{
+                    echo 'stage three branch master'
+                }
+            }
+
+            stage('four'){
+                parallel {
+                    stage('unit test'){
+                        steps{
+                            echo 'running unit test'
+                        }
+                    }
+
+                    stage('integration test'){
+                        agent{
+                            label 'slave1'
+                        }
+                            steps{
+                                echo 'integration test'
+                            }
+                    }
+                }
+            }
+        }
+    }
+}
