@@ -2,7 +2,7 @@ pipeline{
     agent any{
         stages{
             stage ('one'){
-                step{
+                steps{
                 echo 'this is nithin demo declartive pipeline'
                 }
             }
